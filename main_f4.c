@@ -349,7 +349,7 @@ board_init(void)
 
 #if INTERFACE_USB
 
-	/* enable Port A GPIO9 to sample VBUS */
+	/* enable Port C GPIO4 to sample VBUS */
 	rcc_peripheral_enable_clock(&RCC_AHB1ENR, RCC_AHB1ENR_IOPAEN);
 #endif
 
@@ -397,6 +397,24 @@ board_init(void)
 		BOARD_PORT_LEDS,
 		BOARD_PIN_LED_BOOTLOADER | BOARD_PIN_LED_ACTIVITY);
 
+#if defined(BOARD_PIN_5V)
+	/* initialise 5V port */
+	rcc_peripheral_enable_clock(&RCC_AHB1ENR, BOARD_CLOCK_5V);
+    gpio_mode_setup(
+        BOARD_PORT_5V,
+        GPIO_MODE_OUTPUT,
+        GPIO_PUPD_NONE,
+        BOARD_PIN_5V);
+	gpio_set_output_options(
+		BOARD_PORT_5V,
+		GPIO_OTYPE_PP,
+		GPIO_OSPEED_2MHZ,
+		BOARD_PIN_5V);
+
+    /* turn on 5v output */
+    gpio_set(BOARD_PORT_5V, BOARD_PIN_5V);
+#endif
+
 	/* enable the power controller clock */
 	rcc_peripheral_enable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 }
@@ -439,6 +457,14 @@ board_deinit(void)
 		GPIO_PUPD_NONE,
 		BOARD_PIN_LED_BOOTLOADER | BOARD_PIN_LED_ACTIVITY);
 
+#if defined(BOARD_PIN_5V)
+	/* deinitialise LEDs */
+	gpio_mode_setup(
+		BOARD_PORT_5V,
+		GPIO_MODE_INPUT,
+		GPIO_PUPD_NONE,
+		BOARD_PIN_5V);
+#endif
 	/* disable the power controller clock */
 	rcc_peripheral_disable_clock(&RCC_APB1ENR, RCC_APB1ENR_PWREN);
 
@@ -781,7 +807,7 @@ main(void)
 #if defined(BOARD_USB_VBUS_SENSE_DISABLED)
 	try_boot = false;
 #else
-	if (gpio_get(GPIOA, GPIO9) != 0) {
+	if (gpio_get(GPIOC, GPIO4) != 0) {
 
 		/* don't try booting before we set up the bootloader */
 		try_boot = false;
