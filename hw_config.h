@@ -380,17 +380,17 @@
  */
  
 /****************************************************************************
- * TARGET_HW_UAVRS_FMU_V1
+ * TARGET_HW_UAVRS_V1
  ****************************************************************************/
 
-#elif  defined(TARGET_HW_UAVRS_FMU_V1)
+#elif  defined(TARGET_HW_UAVRS_V1)
 
 # define APP_LOAD_ADDRESS               0x08004000
 # define BOOTLOADER_DELAY               5000
 # define BOARD_FMUV2
 # define INTERFACE_USB                  1
 # define INTERFACE_USART                1
-# define USBDEVICESTRING                "USVRS BL FMU v1.x"
+# define USBDEVICESTRING                "UAVRS BL v1.x"
 # define USBPRODUCTID                   0x0011
 # define BOOT_DELAY_ADDRESS             0x000001a0
 

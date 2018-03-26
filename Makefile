@@ -41,7 +41,7 @@ TARGETS	= \
 	auavx2v1_bl \
 	crazyflie_bl \
 	mindpxv2_bl \
-	uavrsfmu_bl \
+	uavrsv1_bl \
 	px4aerocore_bl \
 	px4discovery_bl \
 	px4flow_bl \
@@ -88,8 +88,8 @@ px4fmuv5_bl:$(MAKEFILE_LIST) $(LIBOPENCM3)
 mindpxv2_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
 	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=MINDPX_V2 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
 
-uavrsfmu_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
-	${MAKE} ${MKFLAGS} -f Makefile.f4 TARGET_HW=UAVRS_FMU_V1 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
+uavrsv1_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
+	${MAKE} ${MKFLAGS} -f Makefile.f4 TARGET_HW=UAVRS_V1 LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
 px4discovery_bl: $(MAKEFILE_LIST) $(LIBOPENCM3)
 	${MAKE} ${MKFLAGS} -f  Makefile.f4 TARGET_HW=PX4_DISCOVERY_V1  LINKER_FILE=stm32f4.ld TARGET_FILE_NAME=$@
 
